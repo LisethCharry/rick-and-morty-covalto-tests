@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "8cc426da-e5ea-4261-ae73-2acacc65e0ad",
+		"name": "The Rick and Morty API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32548477",
+		"_collection_link": "https://www.postman.com/research-cosmologist-58323302/covalto-test/collection/27vjmt1/the-rick-and-morty-api?action=share&source=collection_link&creator=32548477"
+	},
+	"item": [
+		{
+			"name": "Prueba 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Tiempo de respuesta de la API\", function () {\r",
+							"    const responseTime = pm.response.responseTime;\r",
+							"    console.log(`Tiempo de respuesta: ${responseTime}ms`);\r",
+							"    pm.expect(responseTime).to.be.above(0);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"El código de estado es 200\", function () {\r",
+							"    const statusCode = pm.response.code;\r",
+							"    console.log(`Status code: ${statusCode}`);\r",
+							"    pm.expect(statusCode).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Cantidad de personajes vivos\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    const vivos = response.results.filter(personaje => personaje.status === \"Alive\").length;\r",
+							"    console.log(`Cantidad de personajes vivos: ${vivos}`);\r",
+							"    pm.expect(vivos).to.be.at.least(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Cantidad de personajes muertos\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    const muertos = response.results.filter(personaje => personaje.status === \"Dead\").length;\r",
+							"    console.log(`Cantidad de personajes muertos: ${muertos}`);\r",
+							"    pm.expect(muertos).to.be.at.least(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Validar tipos de datos en la respuesta\", function () {\r",
+							"    const response = pm.response.json();\r",
+							"    const personaje = response.results[0];\r",
+							"\r",
+							"    console.log(`Tipo de dato - personaje: ${typeof personaje}`);\r",
+							"    console.log(`Tipo de dato - name: ${typeof personaje.name}`);\r",
+							"    console.log(`Tipo de dato - status: ${typeof personaje.status}`);\r",
+							"    console.log(`Tipo de dato - species: ${typeof personaje.species}`);\r",
+							"    console.log(`Tipo de dato - id: ${typeof personaje.id}`);\r",
+							"\r",
+							"    pm.expect(personaje).to.be.an(\"object\");\r",
+							"    pm.expect(personaje.name).to.be.a(\"string\");\r",
+							"    pm.expect(personaje.status).to.be.a(\"string\");\r",
+							"    pm.expect(personaje.species).to.be.a(\"string\");\r",
+							"    pm.expect(personaje.id).to.be.a(\"number\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://rickandmortyapi.com/api/character",
+					"protocol": "https",
+					"host": [
+						"rickandmortyapi",
+						"com"
+					],
+					"path": [
+						"api",
+						"character"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
